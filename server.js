@@ -1,15 +1,22 @@
+'use strict';
+
+
+
+
 const express = require("express");
-const http = require("http");
-const socketio = require("socket.io");
-const bodyParser = require("body-parser");
+const http = require('http');
+const socketio = require('socket.io');
+const bodyParser = require('body-parser');
+
 
 const routes = require('./utils/routes');
 const config = require('./utils/config');
 
+
 class Server{
 
     constructor(){
-        this.port =  process.env.PORT || 3000;
+        this.port =  process.env.PORT || 3008;
         this.host = `localhost`;
 
         this.app = express();
