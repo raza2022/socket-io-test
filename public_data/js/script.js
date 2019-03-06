@@ -1,15 +1,14 @@
-'use strict';
 
 const app = angular.module('app',[]);
 
-/* 
-    Making factory method for socket 
+/*
+    Making factory method for socket
 */
 app.factory('socket', function ($rootScope) {
     const socket = io.connect();
 	return {
 		on: function (eventName, callback) {
-			socket.on(eventName, function () {  
+			socket.on(eventName, function () {
 				var args = arguments;
 				$rootScope.$apply(function () {
 			  		callback.apply(socket, args);
@@ -37,7 +36,7 @@ app.controller('app', ($scope,socket) => {
 	$scope.msgData = null;
 	$scope.userList = [];
 
-	$scope.username = window.prompt('Enter Your Name'); 
+	$scope.username = window.prompt('Enter Your Name');
 	if ($scope.username === '') {
 		window.location.reload();
 	}
@@ -49,16 +48,16 @@ app.controller('app', ($scope,socket) => {
 
 
 	$scope.sendMsg = ($event) => {
-		const keyCode = $event.which || $event.keyCode;	
+		const keyCode = $event.which || $event.keyCode;
 
-	    if (keyCode === 13 && $scope.message !== null) { 
+	    if (keyCode === 13 && $scope.message !== null) {
 	        socket.emit('getMsg',{
 	        	toid : $scope.selectedUser,
 	    		msg : $scope.message,
 	    		name : $scope.username
 	        });
 	        $scope.message = null;
-        }	    
+        }
 	};
 
 
@@ -69,7 +68,7 @@ app.controller('app', ($scope,socket) => {
     	    $scope.socketId = socketId;
     	}
     	$scope.userList = userList;
-	}); 	
+	});
 
 
 	socket.on('exit', (userList) => {
